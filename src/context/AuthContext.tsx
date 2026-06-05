@@ -102,8 +102,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return { error }
   }
 
-  const signUp = async (email: string, password: string, fullName: string) => {
-    const { error } = await supabase.auth.signUp({
+  const signUp = async (
+  email: string,
+  password: string,
+  fullName: string
+) => {
+
+  const { data, error } =
+    await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -112,8 +118,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         },
       },
     })
+
+  if (error) {
     return { error }
   }
+
+  const userId = data.user?.id
+
+  if (userId) {
+
+    await supabase
+      .from("profiles")
+      .insert({
+        id: userId,
+        email: email,
+        full_name: fullName,
+        weekly_hours_goal: 10,
+        weekly_priorities: [],
+      })
+
+  }
+
+  return { error: null }
+}
 
   const signInWithGoogle = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
