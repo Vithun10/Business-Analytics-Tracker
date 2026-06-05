@@ -49,11 +49,6 @@ const IMPORTANT_SKILLS = [
   "Payment Gateways"
 ];
 
-const OPTIONAL_SKILLS = [
-  "Documentation",
-  "Knowledge Management"
-];
-
 export function generateGapAnalysis(
   progressList: any[]
 ): GapResult {
