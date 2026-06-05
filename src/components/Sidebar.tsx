@@ -4,7 +4,6 @@ import {
   CheckSquare,
   BookOpen,
   BarChart3,
-  FileText,
   LogOut,
   Menu,
   X,
